@@ -12,8 +12,6 @@ import ru.kpfu.itis.bookshelf.service.DutyService;
 import ru.kpfu.itis.bookshelf.service.UserService;
 import ru.kpfu.itis.bookshelf.util.Duties;
 
-import java.security.Principal;
-
 
 @Controller
 @RequiredArgsConstructor

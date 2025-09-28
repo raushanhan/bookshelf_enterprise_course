@@ -1,6 +1,5 @@
 package ru.kpfu.itis.bookshelf.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +11,6 @@ import ru.kpfu.itis.bookshelf.model.User;
 import ru.kpfu.itis.bookshelf.repository.UserRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

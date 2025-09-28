@@ -13,12 +13,6 @@ import ru.kpfu.itis.bookshelf.model.Book;
 import ru.kpfu.itis.bookshelf.model.User;
 import ru.kpfu.itis.bookshelf.service.BookService;
 import ru.kpfu.itis.bookshelf.service.LikeService;
-import ru.kpfu.itis.bookshelf.service.UserService;
-import ru.kpfu.itis.bookshelf.util.DateConverter;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -27,7 +21,6 @@ import java.util.Optional;
 public class BookController {
 
     private final BookService bookService;
-    private final UserService userService;
     private final LikeService likeService;
 
     @GetMapping("/read")

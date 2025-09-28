@@ -7,7 +7,6 @@ import ru.kpfu.itis.bookshelf.model.Genre;
 import ru.kpfu.itis.bookshelf.repository.GenreRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

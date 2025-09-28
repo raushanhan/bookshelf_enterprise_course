@@ -7,18 +7,12 @@ import ru.kpfu.itis.bookshelf.model.Duty;
 import ru.kpfu.itis.bookshelf.repository.DutyRepository;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class DutyService {
-
-    private final Map<String, String> dutyRussianNames = Map.of(
-            "author", "автор",
-            "reader", "читатель"
-    );
 
     private final DutyRepository dutyRepository;
 

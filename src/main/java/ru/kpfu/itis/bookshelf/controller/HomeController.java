@@ -9,11 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kpfu.itis.bookshelf.model.Genre;
-import ru.kpfu.itis.bookshelf.model.User;
 import ru.kpfu.itis.bookshelf.repository.GenreRepository;
-import ru.kpfu.itis.bookshelf.service.UserService;
-import ru.kpfu.itis.bookshelf.util.InjectingUserIntoView;
-import ru.kpfu.itis.bookshelf.util.Roles;
 
 import java.util.List;
 

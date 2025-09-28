@@ -1,6 +1,5 @@
 package ru.kpfu.itis.bookshelf.util;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import ru.kpfu.itis.bookshelf.model.User;
 

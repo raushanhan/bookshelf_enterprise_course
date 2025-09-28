@@ -1,12 +1,9 @@
 package ru.kpfu.itis.bookshelf.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import ru.kpfu.itis.bookshelf.model.LikedBook;
 import ru.kpfu.itis.bookshelf.model.User;
-
 import java.util.List;
-import java.util.Optional;
 
 public interface LikedBookRepository extends JpaRepository<LikedBook, Long> {
     List<LikedBook> findAllByUser(User user);
