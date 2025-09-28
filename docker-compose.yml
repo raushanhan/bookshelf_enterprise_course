@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bookshelf_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      # DB - override properties from application.properties
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_FLYWAY_ENABLED: "true"
+      # путь внутри контейнера, куда смонтирован каталог с обложками
+      BOOK_COVERS_PATH: /data/covers
+      # параметры для wait-for-db.sh
+      DB_HOST: postgres
+      DB_PORT: 5432
+      # дополнительные опции (необязательно)
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_JPA_SHOW_SQL: "true"
+    ports:
+      - "8080:8080"
+    volumes:
+      # Монтируем папку с обложками (на хосте) в контейнер /data/covers
+      - D:/server/covers:/data/covers
+    # Можно также использовать env_file: - .env для паролей/секретов
+    # env_file:
+    #   - .env
+
+volumes:
+  postgres_data:
