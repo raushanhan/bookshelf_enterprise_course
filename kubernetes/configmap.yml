@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: bookshelf-app
+data:
+  datasource-prefix: "jdbc:postgresql://postgres:5432"
