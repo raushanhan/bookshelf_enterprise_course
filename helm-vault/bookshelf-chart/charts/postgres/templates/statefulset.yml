@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.global.database.appName }}-stateful-set
+  namespace: {{ include "bookshelf-chart.namespace" . }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "postgres.selectorLabels" . | nindent 6 }}
+  serviceName: {{ .Values.global.database.appName }}-service
+  replicas: {{ .Values.statefulset.replicas }}
+  template:
+    metadata:
+      labels:
+        {{- include "postgres.labels" . | nindent 8}}
+    spec:
+      containers:
+        - name: {{ .Values.statefulset.containerName}}
+          image: "{{ .Values.statefulset.image.repository }}:{{ .Values.statefulset.image.tag }}"
+          imagePullPolicy: {{ .Values.statefulset.imagePullPolicy | quote }}
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.database.appName }}-secret
+                  key: postgresql-db
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.database.appName }}-secret
+                  key: postgresql-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.database.appName }}-secret
+                  key: postgresql-password
+          ports:
+            - name: {{ .Values.service.ports.name }}
+              containerPort: {{ .Values.service.ports.port }}
+              protocol: {{ .Values.service.ports.protocol }}
+          volumeMounts:
+            - name: {{ .Values.statefulset.volume.name }}
+              mountPath: {{ .Values.statefulset.volume.mountPath }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.statefulset.volume.name }}
+      spec:
+        accessModes:
+            - {{ .Values.statefulset.volume.template.accessMode | quote }}
+        resources:
+          requests:
+            storage: {{ .Values.statefulset.volume.template.storage | quote }}
+            

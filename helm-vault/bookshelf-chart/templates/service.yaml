@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.app.name }}-service
+  namespace: {{ include "bookshelf-chart.namespace" . }}
+spec:
+  selector:
+    {{- include "bookshelf-chart.selectorLabels" . | nindent 4}}
+  ports:
+    - protocol: {{ .Values.service.protocol }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+  type: {{ .Values.service.type }}

@@ -1,0 +1,28 @@
+secret:
+  postgresql:
+    db: ref+vault://secrets/db#/database
+    user: ref+vault://secrets/db#/username
+    password: ref+vault://secrets/db#/password
+
+service:
+  type: ClusterIP
+  clusterIP: None
+  ports: 
+    name: postgresql
+    port: 5432
+    targetPort: postgresql
+    protocol: TCP
+
+statefulset:
+  replicas: 1
+  containerName: postgres
+  image:
+    repository: postgres
+    tag: 16
+    imagePullPolicy: "ifNotPresent"
+  volume:
+    name: postgres-storage
+    mountPath: "/var/lib/postgresql/data"
+    template: 
+      accessMode: "ReadWriteOnce"
+      storage: "1Gi"

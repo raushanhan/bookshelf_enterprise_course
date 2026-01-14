@@ -1,0 +1,46 @@
+global:
+  app:
+    name: &appName bookshelf-app
+  database:
+    appName: postgres
+    databasePswVariableName: postgresql-password
+    databaseUserVariableName: postgresql-user
+    databaseNameVariableName: postgresql-db
+    datasource:
+      dbAccessApi: "jdbc"
+      dbAppName: postgresql
+      port: "5432"
+  migration:
+    appName: flyway
+
+
+service:
+  name: bookshelf-service
+  type: NodePort
+  protocol: TCP
+  port: 80
+  targetPort: &targetPort 8080
+  nodePort: null  # для автоматического назначения
+
+deployment:
+  replicas: 3
+  container: 
+    containerName: *appName
+    containerPort: *targetPort
+  image: 
+    repository: bookshelf-app
+    tag: "1.0.2"
+    pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  className: nginx
+  host: bookshelf.local
+  path: /
+  pathType: Prefix
+  port: 80
+
+container:
+  port: 8080
+
+

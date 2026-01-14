@@ -1,0 +1,9 @@
+migrations:
+  enabled: true
+  jobName: flyway-migration
+  image:
+    repository: flyway-migrations
+    tag: "1.0"
+    pullPolicy: IfNotPresent
+  restartPolicy: Never
+  containerName: flyway
