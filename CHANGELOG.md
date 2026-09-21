@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/raushanhan/bookshelf_enterprise_course/compare/v1.0.0...v1.0.1) (2026-09-21)
+
+
+### Bug Fixes
+
+* make gradlew executable in CI ([6f54001](https://github.com/raushanhan/bookshelf_enterprise_course/commit/6f54001a9b3bfe2e229abaa3f95eef46774caaed))
+
 # 1.0.0 (2026-09-21)
 
 
