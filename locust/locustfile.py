@@ -20,3 +20,6 @@ class WebsiteUser(HttpUser):
         self.client.get(f"/book/{book_id}")
 
         self.client.get(f"/book/{book_id}/read")
+
+
+        
