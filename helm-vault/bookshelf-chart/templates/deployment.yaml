@@ -29,7 +29,7 @@ spec:
                   key: {{ .Values.global.database.databaseNameVariableName }}
 
             - name: SPRING_DATASOURCE_URL
-              value: $(datasourcePrefix)/$(POSTGRES_DB)
+              value: {{ include "bookshelf-chart.datasourcePrefix" . }}/$(POSTGRES_DB)
 
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
@@ -45,3 +45,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Values.global.app.name }}-config
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}

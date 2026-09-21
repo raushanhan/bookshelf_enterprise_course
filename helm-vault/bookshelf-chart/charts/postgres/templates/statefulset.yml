@@ -50,4 +50,3 @@ spec:
         resources:
           requests:
             storage: {{ .Values.statefulset.volume.template.storage | quote }}
-            

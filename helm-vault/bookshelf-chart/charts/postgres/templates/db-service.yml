@@ -15,3 +15,4 @@ spec:
       protocol: {{ .Values.service.ports.protocol }}
   selector:
     {{- include "postgres.selectorLabels" . | nindent 4 }}
+

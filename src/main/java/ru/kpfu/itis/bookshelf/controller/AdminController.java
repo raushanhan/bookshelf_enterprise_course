@@ -26,12 +26,11 @@ public class AdminController {
 
     @GetMapping
     public String adminPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-//        User user = userService.findByUsername(userDetails.getUsername());
-//        InjectingUserIntoView.inject(model, user);
-//        model.addAttribute("user", user);
 
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
+
+        User user = new User();
         return "admin";
     }
 

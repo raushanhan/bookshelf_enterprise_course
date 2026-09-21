@@ -4,4 +4,4 @@ metadata:
   name: app-config
   namespace: bookshelf-app
 data:
-  datasource-prefix: "jdbc:postgresql://postgres:5432"
+  datasource-prefix: "jdbc:postgresql://postgres-service:5432"
