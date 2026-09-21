@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.global.migration.appName }}-migration-job
+  namespace: {{ include "bookshelf-chart.namespace" . }}
+spec:
+  template:
+    spec:
+      restartPolicy: {{ .Values.migrations.restartPolicy }}
+      containers:
+        - name: {{ .Values.migrations.containerName }}
+          image: "{{ .Values.migrations.image.repository }}:{{ .Values.migrations.image.tag }}"
+          imagePullPolicy: {{ .Values.migrations.image.pullPolicy }}
+          args:
+            - "migrate"
+            - "-url={{ include "bookshelf-chart.datasourcePrefix" . }}/$({{ .Values.global.database.databaseNameVariableName }})"
+            - "-user=$({{ .Values.global.database.databaseUserVariableName }})"
+            - "-password=$({{ .Values.global.database.databasePswVariableName }})"
+          envFrom:
+            - secretRef:
+                name: {{ .Values.global.database.appName }}-secret
+            - configMapRef:
+                name: {{ .Values.global.app.name }}-config

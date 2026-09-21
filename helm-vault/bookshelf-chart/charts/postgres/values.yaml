@@ -1,0 +1,28 @@
+secret:
+  postgresql:
+    db: bookshelf_db
+    user: postgres
+    password: postgres
+
+service:
+  type: ClusterIP
+  clusterIP: None
+  ports: 
+    name: postgresql
+    port: 5432
+    targetPort: postgresql
+    protocol: TCP
+
+statefulset:
+  replicas: 1
+  containerName: postgres
+  image:
+    repository: postgres
+    tag: 16
+    imagePullPolicy: "ifNotPresent"
+  volume:
+    name: postgres-storage
+    mountPath: "/var/lib/postgresql/data"
+    template: 
+      accessMode: "ReadWriteOnce"
+      storage: "1Gi"

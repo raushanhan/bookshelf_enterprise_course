@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookshelf-deployment
+  labels:
+    app: bookshelf-app
+  namespace: bookshelf-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bookshelf-app
+  template:
+    metadata:
+      labels:
+        app: bookshelf-app
+    spec:
+      containers:
+        - name: bookshelf-app
+          image: bookshelf-app:1.0.1
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: postgresql-db
+
+            - name: SPRING_DATASOURCE_URL
+              value: $(datasource-prefix)/$(POSTGRES_DB)
+
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: postgresql-user
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: postgresql-password
+          envFrom:
+            - configMapRef:
+                name: app-config

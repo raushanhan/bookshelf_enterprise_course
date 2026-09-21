@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.global.database.appName }}-service
+  namespace: {{ include "bookshelf-chart.namespace" . }}
+  labels:
+    app: {{- include "postgres.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  clusterIP: {{ .Values.service.clusterIP }}
+  ports:
+    - name: {{ .Values.service.ports.name }}
+      port: {{ .Values.service.ports.port }}
+      targetPort: {{ .Values.service.ports.targetPort }}
+      protocol: {{ .Values.service.ports.protocol }}
+  selector:
+    {{- include "postgres.selectorLabels" . | nindent 4 }}
+

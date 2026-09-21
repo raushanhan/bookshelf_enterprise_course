@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.global.app.name }}-deployment
+  labels:
+    {{- include "bookshelf-chart.labels" . | nindent 4 }}
+  namespace: {{ include "bookshelf-chart.namespace" . }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      {{- include "bookshelf-chart.selectorLabels" . | nindent 6}}
+  template:
+    metadata:
+      labels:
+        {{- include "bookshelf-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.deployment.container.containerName }}
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+          imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.deployment.container.containerPort }}
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.database.appName }}-secret
+                  key: {{ .Values.global.database.databaseNameVariableName }}
+
+            - name: SPRING_DATASOURCE_URL
+              value: {{ include "bookshelf-chart.datasourcePrefix" . }}/$(POSTGRES_DB)
+
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.database.appName }}-secret
+                  key: {{ .Values.global.database.databaseUserVariableName }}
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.database.appName }}-secret
+                  key: {{ .Values.global.database.databasePswVariableName }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.global.app.name }}-config
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}

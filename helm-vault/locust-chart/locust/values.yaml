@@ -1,0 +1,37 @@
+image:
+  repository: locustio/locust
+  tag: "2.46.5"
+  pullPolicy: IfNotPresent
+
+workers: 1
+
+targetHost: "http://bookshelf-app-service"
+
+users: 1000
+spawnRate: 1
+runTime: "10m"
+
+master:
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+worker:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+metrics:
+  intervalSeconds: 10
+
+ingress:
+  enabled: true
+  host: locust.local

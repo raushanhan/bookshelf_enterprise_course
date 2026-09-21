@@ -1,0 +1,40 @@
+apiVersion: locust.io/v1
+kind: LocustTest
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+  workers: {{ .Values.workers }}
+
+  args: >-
+    --host {{ .Values.targetHost }}
+    --users {{ .Values.users }}
+    --spawn-rate {{ .Values.spawnRate }}
+    --run-time {{ .Values.runTime }}
+
+  locustfile:
+    configMap:
+      name: {{ .Release.Name }}-locustfile
+
+  master:
+    resources:
+      requests:
+        cpu: {{ .Values.master.resources.requests.cpu }}
+        memory: {{ .Values.master.resources.requests.memory }}
+      limits:
+        cpu: {{ .Values.master.resources.limits.cpu }}
+        memory: {{ .Values.master.resources.limits.memory }}
+
+  worker:
+    resources:
+      requests:
+        cpu: {{ .Values.worker.resources.requests.cpu }}
+        memory: {{ .Values.worker.resources.requests.memory }}
+      limits:
+        cpu: {{ .Values.worker.resources.limits.cpu }}
+        memory: {{ .Values.worker.resources.limits.memory }}
+
+  metrics:
+    intervalSeconds: {{ .Values.metrics.intervalSeconds }}

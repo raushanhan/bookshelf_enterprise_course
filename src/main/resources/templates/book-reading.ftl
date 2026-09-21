@@ -13,9 +13,9 @@
                 <p class="text-muted mb-1">
                     Автор: <a href="/profile/${book.author.username}">${book.author.username}</a>
                 </p>
-                <#if book.dateOfLastUpdate??>
+                <#if book.lastUpdateDate??>
                     <p class="text-muted">
-                        Последнее обновление: ${dateOfLastUpdate?string("dd.MM.yyyy HH:mm")}
+                        Последнее обновление: ${lastUpdateDate?string("dd.MM.yyyy HH:mm")}
                     </p>
                 </#if>
             </div>

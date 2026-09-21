@@ -4,7 +4,7 @@ COPY . .
 
 RUN gradle clean bootJar --no-daemon
 
-FROM eclipse-temurin:17-jdk
+FROM amazoncorretto:17.0.17-al2-generic
 WORKDIR /app
 
 COPY --from=build /app/build/libs/*.jar app.jar

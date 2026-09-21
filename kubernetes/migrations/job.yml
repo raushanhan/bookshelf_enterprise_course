@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flyway-migration
+  namespace: bookshelf-app
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: flyway
+          image: flyway-migrations:1.0
+          args:
+            - "migrate"
+            - "-url=$(datasource-prefix)/$(postgresql-db)"
+            - "-user=$(postgresql-user)"
+            - "-password=$(postgresql-password)"
+          envFrom:
+            - secretRef:
+                name: postgres-secrets
+            - configMapRef:
+                name: app-config

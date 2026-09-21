@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.app.name }}-config
+  namespace: {{ include "bookshelf-chart.namespace" . }}
+data:
+  datasource-prefix: {{ include "bookshelf-chart.datasourcePrefix" . }}

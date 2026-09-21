@@ -1,0 +1,4 @@
+FROM flyway/flyway:10.10.0
+
+# Копируем все миграции в папку, где Flyway их ищет
+COPY src/main/resources/db/migration /flyway/sql

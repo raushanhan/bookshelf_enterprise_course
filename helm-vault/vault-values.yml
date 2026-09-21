@@ -1,0 +1,6 @@
+postgres:
+  secret:
+    postgresql:
+      db: ref+vault://secrets/db#/database
+      user: ref+vault://secrets/db#/username
+      password: ref+vault://secrets/db#/password
