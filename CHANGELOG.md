@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/raushanhan/bookshelf_enterprise_course/compare/v1.0.1...v1.1.0) (2026-09-22)
+
+
+### Features
+
+* run build-and-push on self-hosted runner ([dc8f9df](https://github.com/raushanhan/bookshelf_enterprise_course/commit/dc8f9dfa0d7455fc9dedffc8447eb9c0f74a40ae))
+
 ## [1.0.1](https://github.com/raushanhan/bookshelf_enterprise_course/compare/v1.0.0...v1.0.1) (2026-09-21)
 
 
