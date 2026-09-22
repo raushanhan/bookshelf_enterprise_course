@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/raushanhan/bookshelf_enterprise_course/compare/v1.1.0...v1.1.1) (2026-09-22)
+
+
+### Bug Fixes
+
+* use Java 17 in build-and-push job ([8bdc1d8](https://github.com/raushanhan/bookshelf_enterprise_course/commit/8bdc1d84e32a51297e6a2efaf446175f0bc0fb14))
+
 # [1.1.0](https://github.com/raushanhan/bookshelf_enterprise_course/compare/v1.0.1...v1.1.0) (2026-09-22)
 
 
